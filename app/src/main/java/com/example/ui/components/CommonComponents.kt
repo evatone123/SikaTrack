@@ -1,5 +1,6 @@
 package com.example.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -129,14 +130,13 @@ fun CategoryIconBadge(
     modifier: Modifier = Modifier,
     size: Int = 44
 ) {
-    val bgColor = parseColorSafe(colorHex).copy(alpha = 0.18f)
     val tintColor = parseColorSafe(colorHex)
 
     Box(
         modifier = modifier
             .size(size.dp)
             .clip(CircleShape)
-            .background(bgColor),
+            .background(MaterialTheme.colorScheme.surfaceVariant),
         contentAlignment = Alignment.Center
     ) {
         Icon(
@@ -236,19 +236,20 @@ fun TransactionItemRow(
         TransactionType.EXPENSE -> "#D32F2F"
     }
 
-    Box(
+    Card(
         modifier = modifier
             .fillMaxWidth()
-            .glassmorphic(
-                shape = RoundedCornerShape(16.dp),
-                elevation = 5.dp
-            )
             .clickable(onClick = onClick)
-            .testTag("transaction_item_${transaction.id}")
-            .padding(horizontal = 14.dp, vertical = 12.dp)
+            .testTag("transaction_item_${transaction.id}"),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        shape = RoundedCornerShape(14.dp),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 14.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             CategoryIconBadge(
@@ -326,16 +327,72 @@ fun StatCard(
     modifier: Modifier = Modifier,
     subtitle: String? = null
 ) {
-    GlassStatCard(
-        title = title,
-        amount = amount,
-        currency = currency,
-        hideBalances = hideBalances,
-        color = color,
-        icon = icon,
-        subtitle = subtitle,
-        modifier = modifier.heightIn(min = 94.dp)
-    )
+    Card(
+        modifier = modifier.heightIn(min = 92.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(12.dp),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f, fill = false)
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Box(
+                    modifier = Modifier
+                        .size(26.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.surfaceVariant),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = color,
+                        modifier = Modifier.size(15.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            Column {
+                Text(
+                    text = CurrencyFormatter.format(amount, currency, hideBalances),
+                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                    color = color,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+
+                if (subtitle != null) {
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+            }
+        }
+    }
 }
 
 @Composable
@@ -346,18 +403,16 @@ fun MonthSelectorHeader(
     onNext: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .glassmorphic(
-                shape = RoundedCornerShape(18.dp),
-                elevation = 6.dp
-            )
-            .padding(horizontal = 8.dp, vertical = 4.dp)
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 4.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
