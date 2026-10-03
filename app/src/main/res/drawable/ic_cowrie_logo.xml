@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Flat Outer Cowrie Shell Base -->
+    <path
+        android:pathData="M54,22 C72,22 82,37 82,54 C82,71 71,85 54,86 C37,85 26,71 26,54 C26,37 36,22 54,22 Z"
+        android:fillColor="#FFA000" />
+
+    <!-- Flat Inner Dorsum Shell Body -->
+    <path
+        android:pathData="M54,26 C68,26 76,39 76,54 C76,68 66,81 54,82 C42,81 32,68 32,54 C32,39 40,26 54,26 Z"
+        android:fillColor="#FFD54F" />
+
+    <!-- Central Aperture (Cowrie Slit) -->
+    <path
+        android:pathData="M54,30 C50,35 49,43 49,54 C49,65 50,73 54,78 C58,73 59,65 59,54 C59,43 58,35 54,30 Z"
+        android:fillColor="#004D40" />
+
+    <!-- Left Lip Denticles / Teeth -->
+    <path
+        android:pathData="M48,38 L52,38 M47,44 L52,44 M46,50 L52,50 M46,56 L52,56 M47,62 L52,62 M48,68 L52,68"
+        android:strokeColor="#FFD54F"
+        android:strokeWidth="2.0"
+        android:strokeLineCap="round" />
+
+    <!-- Right Lip Denticles / Teeth -->
+    <path
+        android:pathData="M56,38 L60,38 M56,44 L61,44 M56,50 L62,50 M56,56 L62,56 M56,62 L61,62 M56,68 L60,68"
+        android:strokeColor="#FFD54F"
+        android:strokeWidth="2.0"
+        android:strokeLineCap="round" />
+</vector>

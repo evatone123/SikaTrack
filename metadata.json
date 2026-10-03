@@ -1,0 +1,6 @@
+{
+  "name": "SikaTrack",
+  "description": "Offline-first personal finance tracker with authentic cowrie currency heritage, multi-account, budget, and goal tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
