@@ -13,16 +13,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.ui.components.GlassmorphicAtmosphere
 import com.example.ui.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 /**
- * Main application scaffold with 3D Glassmorphism atmospheric backdrop,
- * frosted-glass BottomNavigationBar, and Jetpack Navigation.
+ * Main application scaffold with standard Material 3 BottomNavigationBar and Jetpack Navigation.
  */
 @Composable
 fun MainAppScaffold(
@@ -43,26 +40,23 @@ fun MainAppScaffold(
     // Show BottomBar only on the 5 core navigation screens
     val isBottomBarVisible = BottomNavDestination.items.any { it.route == currentRoute }
 
-    GlassmorphicAtmosphere(modifier = modifier) {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            containerColor = Color.Transparent,
-            snackbarHost = { SnackbarHost(snackbarHostState) },
-            bottomBar = {
-                AnimatedVisibility(
-                    visible = isBottomBarVisible,
-                    enter = slideInVertically(initialOffsetY = { it }),
-                    exit = slideOutVertically(targetOffsetY = { it })
-                ) {
-                    AppBottomNavigationBar(navController = navController)
-                }
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+        bottomBar = {
+            AnimatedVisibility(
+                visible = isBottomBarVisible,
+                enter = slideInVertically(initialOffsetY = { it }),
+                exit = slideOutVertically(targetOffsetY = { it })
+            ) {
+                AppBottomNavigationBar(navController = navController)
             }
-        ) { innerPadding ->
-            AppNavHost(
-                navController = navController,
-                viewModel = viewModel,
-                modifier = Modifier.padding(innerPadding)
-            )
         }
+    ) { innerPadding ->
+        AppNavHost(
+            navController = navController,
+            viewModel = viewModel,
+            modifier = Modifier.padding(innerPadding)
+        )
     }
 }

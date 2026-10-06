@@ -175,7 +175,7 @@ fun SettingsScreen(
                             Text(
                                 text = "No server, no internet connection required. Your financial data never leaves this device.",
                                 style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
                             )
                         }
                     }
@@ -247,7 +247,7 @@ fun SettingsScreen(
                                     Surface(
                                         onClick = { viewModel.setThemeMode(mode) },
                                         shape = RoundedCornerShape(12.dp),
-                                        color = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                                        color = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant,
                                         border = if (isSelected) BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary) else null,
                                         modifier = Modifier
                                             .weight(1f)

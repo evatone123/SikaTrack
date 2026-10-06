@@ -56,7 +56,6 @@ import com.example.data.model.SortOrder
 import com.example.data.model.TransactionType
 import com.example.ui.components.EmptyStateView
 import com.example.ui.components.TransactionItemRow
-import com.example.ui.components.glassmorphic
 import com.example.ui.viewmodel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -119,26 +118,13 @@ fun TransactionsScreen(
                             }
                         }
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Transparent
-                )
+                }
             )
         },
-        containerColor = Color.Transparent,
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onNavigateToAddTransaction,
-                modifier = Modifier
-                    .testTag("fab_add_transaction")
-                    .glassmorphic(
-                        shape = RoundedCornerShape(16.dp),
-                        elevation = 8.dp,
-                        tint = MaterialTheme.colorScheme.primary,
-                        accentBorder = Color.White.copy(alpha = 0.5f)
-                    ),
-                containerColor = Color.Transparent,
-                contentColor = MaterialTheme.colorScheme.onPrimary
+                modifier = Modifier.testTag("fab_add_transaction")
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add Transaction")
             }

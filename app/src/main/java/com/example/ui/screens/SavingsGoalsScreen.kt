@@ -1,5 +1,6 @@
 package com.example.ui.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -68,9 +69,7 @@ import com.example.data.local.entity.AccountEntity
 import com.example.data.local.entity.SavingsGoalEntity
 import com.example.domain.CurrencyFormatter
 import com.example.ui.components.EmptyStateView
-import com.example.ui.components.GlassCard
 import com.example.ui.components.getCategoryIcon
-import com.example.ui.components.glassmorphic
 import com.example.ui.components.parseColorSafe
 import com.example.ui.theme.ExpenseColor
 import com.example.ui.theme.IncomeColor
@@ -98,27 +97,16 @@ fun SavingsGoalsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Savings Goals", fontWeight = FontWeight.Bold) },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
+                title = { Text("Savings Goals", fontWeight = FontWeight.Bold) }
             )
         },
-        containerColor = Color.Transparent,
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
                     goalToEdit = null
                     showAddDialog = true
                 },
-                modifier = Modifier
-                    .testTag("fab_add_goal")
-                    .glassmorphic(
-                        shape = RoundedCornerShape(16.dp),
-                        elevation = 8.dp,
-                        tint = MaterialTheme.colorScheme.primary,
-                        accentBorder = Color.White.copy(alpha = 0.5f)
-                    ),
-                containerColor = Color.Transparent,
-                contentColor = MaterialTheme.colorScheme.onPrimary
+                modifier = Modifier.testTag("fab_add_goal")
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add Goal")
             }
@@ -133,11 +121,14 @@ fun SavingsGoalsScreen(
         ) {
             // Goals Summary Card
             item {
-                GlassCard(
+                Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .testTag("goals_summary_card"),
-                    shape = RoundedCornerShape(22.dp)
+                    shape = RoundedCornerShape(18.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                 ) {
                     Column(modifier = Modifier.padding(18.dp)) {
                         Row(
@@ -330,18 +321,20 @@ fun GoalItemCard(
     val fraction = if (goal.targetAmount > 0) (goal.currentAmount / goal.targetAmount).toFloat().coerceIn(0f, 1f) else 0f
     val remaining = maxOf(0.0, goal.targetAmount - goal.currentAmount)
 
-    Box(
+    Card(
         modifier = modifier
             .fillMaxWidth()
-            .glassmorphic(
-                shape = RoundedCornerShape(18.dp),
-                elevation = 5.dp,
-                accentBorder = parseColorSafe(goal.colorHex).copy(alpha = 0.5f)
-            )
-            .testTag("goal_card_${goal.id}")
-            .padding(16.dp)
+            .testTag("goal_card_${goal.id}"),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -350,7 +343,7 @@ fun GoalItemCard(
                     modifier = Modifier
                         .size(44.dp)
                         .clip(CircleShape)
-                        .background(parseColorSafe(goal.colorHex).copy(alpha = 0.16f)),
+                        .background(MaterialTheme.colorScheme.surfaceVariant),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(

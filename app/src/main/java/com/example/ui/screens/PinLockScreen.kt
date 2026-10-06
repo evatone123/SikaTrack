@@ -82,7 +82,7 @@ fun PinLockScreen(
                 modifier = Modifier
                     .size(64.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)),
+                    .background(MaterialTheme.colorScheme.surfaceVariant),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -96,7 +96,7 @@ fun PinLockScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(
-                text = "PocketLedger Locked",
+                text = "SikaTrack Locked",
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold
             )

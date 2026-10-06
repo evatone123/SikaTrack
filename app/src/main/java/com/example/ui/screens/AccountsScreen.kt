@@ -1,5 +1,6 @@
 package com.example.ui.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -79,10 +80,8 @@ import com.example.data.model.TransactionType
 import com.example.domain.CurrencyFormatter
 import com.example.domain.FinancialCalculations
 import com.example.ui.components.EmptyStateView
-import com.example.ui.components.GlassCard
 import com.example.ui.components.TransactionItemRow
 import com.example.ui.components.getCategoryIcon
-import com.example.ui.components.glassmorphic
 import com.example.ui.components.parseColorSafe
 import com.example.ui.theme.ExpenseColor
 import com.example.ui.theme.IncomeColor
@@ -116,27 +115,16 @@ fun AccountsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Accounts & Wallets", fontWeight = FontWeight.Bold) },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
+                title = { Text("Accounts & Wallets", fontWeight = FontWeight.Bold) }
             )
         },
-        containerColor = Color.Transparent,
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
                     accountToEdit = null
                     showAddEditDialog = true
                 },
-                modifier = Modifier
-                    .testTag("fab_add_account")
-                    .glassmorphic(
-                        shape = RoundedCornerShape(16.dp),
-                        elevation = 8.dp,
-                        tint = MaterialTheme.colorScheme.primary,
-                        accentBorder = Color.White.copy(alpha = 0.5f)
-                    ),
-                containerColor = Color.Transparent,
-                contentColor = MaterialTheme.colorScheme.onPrimary
+                modifier = Modifier.testTag("fab_add_account")
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add Account")
             }
@@ -151,11 +139,14 @@ fun AccountsScreen(
         ) {
             // Net Worth Card
             item {
-                GlassCard(
+                Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .testTag("accounts_total_balance_card"),
-                    shape = RoundedCornerShape(22.dp)
+                    shape = RoundedCornerShape(18.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                 ) {
                     Column(modifier = Modifier.padding(18.dp)) {
                         Text(
@@ -330,7 +321,7 @@ fun AccountsScreen(
                             modifier = Modifier
                                 .size(44.dp)
                                 .clip(CircleShape)
-                                .background(parseColorSafe(acc.colorHex).copy(alpha = 0.18f)),
+                                .background(MaterialTheme.colorScheme.surfaceVariant),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
@@ -480,27 +471,27 @@ fun AccountItemCard(
 ) {
     var showMenu by remember { mutableStateOf(false) }
 
-    Box(
+    Card(
         modifier = modifier
             .fillMaxWidth()
-            .glassmorphic(
-                shape = RoundedCornerShape(18.dp),
-                elevation = 5.dp,
-                accentBorder = parseColorSafe(account.colorHex).copy(alpha = 0.5f)
-            )
             .clickable(onClick = onCardClick)
-            .testTag("account_card_${account.id}")
-            .padding(16.dp)
+            .testTag("account_card_${account.id}"),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
                 modifier = Modifier
                     .size(46.dp)
                     .clip(CircleShape)
-                    .background(parseColorSafe(account.colorHex).copy(alpha = 0.16f)),
+                    .background(MaterialTheme.colorScheme.surfaceVariant),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
